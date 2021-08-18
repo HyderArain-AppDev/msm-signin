@@ -1,11 +1,14 @@
 class BookmarksController < ApplicationController
   def index
+    @all_movies = Movie.all
+
     the_id = session.fetch("user_id")
 
     matching_bookmarks = Bookmark.where({:user_id => the_id})
 
     @list_of_bookmarks = matching_bookmarks.order({ :created_at => :desc })
 
+    @user = User.where({:id => the_id}).first.first_name
     render({ :template => "bookmarks/index.html.erb" })
   end
 

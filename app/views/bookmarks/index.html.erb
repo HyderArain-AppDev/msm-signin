@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all bookmarks
+      <%=@user%>'s Bookmarks
     </h1>
   </div>
 </div>
@@ -17,16 +17,15 @@
     <form action="/insert_bookmark" method="post">
   
 
-      <div>
-        <label for="movie_id_box">
-          Movie
-        </label>
-
-        <input type="text" id="movie_id_box" name="query_movie_id">
-      </div>
-
+      <select name="query_movie_id" id="movie_id_box">
+        <% @all_movies.each do |movie|%>
+          <option value="<%=movie.id%>">
+            <%=movie.title%>
+          </option>
+        <%end%>
+      </select>
       <button>
-        Create bookmark
+        Bookmark this Movie!
       </button>
     </form>
   </div>
@@ -58,6 +57,10 @@
         </th>
 
         <th>
+          
+        </th>
+        <th>
+          
         </th>
       </tr>
 
@@ -85,6 +88,11 @@
         <td>
           <a href="/bookmarks/<%= a_bookmark.id %>">
             Show details
+          </a>
+        </td>
+        <td>
+          <a href="/delete_bookmark/<%= a_bookmark.id %>">
+            Un-Bookmark
           </a>
         </td>
       </tr>
