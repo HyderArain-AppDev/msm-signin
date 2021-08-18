@@ -14,6 +14,13 @@ class MoviesController < ApplicationController
 
     @the_movie = matching_movies.at(0)
 
+    if Bookmark.where({:user_id => session.fetch("user_id"), :movie_id => @the_movie.id}).empty?
+    else
+      @bookmarked = true
+      the_mark = Bookmark.where({:user_id => session.fetch("user_id"), :movie_id => @the_movie.id}).first
+      @mark_id = the_mark.id
+    end
+
     render({ :template => "movies/show.html.erb" })
   end
 
